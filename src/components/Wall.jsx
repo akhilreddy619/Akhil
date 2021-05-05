@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import Brick from "./Brick";
 import "../css/wall.css";
+import Button from "./Button";
 
 class Wall extends Component {
   state = {
     bricks: [
-      { num: 1, col: "blue" },
-      { num: 2, col: "blue" },
+      //   { num: 1, col: "blue" },
+      //   { num: 2, col: "blue" },
     ],
   };
 
@@ -24,24 +25,29 @@ class Wall extends Component {
   };
 
   render() {
+    if (this.state.bricks.length == 0) {
+      return (
+        <React.Fragment>
+          <p>No Bricks are present</p>
+          <Button addBrick={this.addBrick} />
+        </React.Fragment>
+      );
+    }
     return (
-      <div className="wall-container">
-        {this.state.bricks.map((brick) => {
-          return (
-            <Brick
-              onClick={this.handleOnClick}
-              number={brick.num}
-              color={brick.col}
-            />
-          );
-        })}
-
-        <div className="add-btn-box">
-          <button onClick={this.addBrick} className="add-btn">
-            +
-          </button>
+      <React.Fragment>
+        <div className="wall-container">
+          {this.state.bricks.map((brick) => {
+            return (
+              <Brick
+                onClick={this.handleOnClick}
+                number={brick.num}
+                color={brick.col}
+              />
+            );
+          })}
         </div>
-      </div>
+        <Button addBrick={this.addBrick} />
+      </React.Fragment>
     );
   }
 }
